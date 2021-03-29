@@ -12,6 +12,7 @@ class JoueurHumain(Joueur):
     Cette classe n'a pas de méthode spécifique, mais servira à distinguer les joueurs humains des
     joueurs ordinateurs.
     """
+    
 
     def __init__(self, identifiant):
         """
@@ -19,5 +20,6 @@ class JoueurHumain(Joueur):
         Args:
             identifiant (int): Numéro d'identification du joueur
         """
-        pass
+        super().__init__(identifiant)
+
 

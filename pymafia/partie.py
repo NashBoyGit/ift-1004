@@ -2,9 +2,10 @@
 Module de la classe Partie
 """
 
+from pymafia.joueur import Joueur
 from pymafia.joueur_humain import JoueurHumain
 from pymafia.joueur_ordinateur import JoueurOrdinateur
-from random import shuffle
+from random import normalvariate, shuffle
 
 # Variable globale spécifiant le nombre maximale de rondes d'une partie du jeu pymafia
 RONDEMAX = 10
@@ -24,7 +25,7 @@ class Partie:
         gagnant (Joueur): Joueur qui sera déclaré gagnant de la partie, initialisé à None
     """
 
-    joueurs = []
+    joueurs = [Joueur]
     joueurs_actifs = []
     premier_joueur = None
     joueur_courant = None
@@ -55,7 +56,15 @@ class Partie:
         Returns:
             list: Liste des joueurs
         """
-        pass
+        joueurs = []
+        for identifiant in range(nombre_joueurs):
+            if identifiant < nombre_joueurs_humains: 
+                joueurs.append(JoueurHumain(identifiant))
+            else: 
+                joueurs.append(JoueurOrdinateur(identifiant))
+            
+        shuffle(joueurs)
+        return joueurs
 
     def preparer_une_partie(self):
         """
@@ -67,7 +76,10 @@ class Partie:
         # Affecter à l'attribut du joueur_courant le premier joueur.
         # Déterminer qui est le joueur suivant.
         # Réinitialiser les dés des joueurs pour que chaque joueur ait 5 dés.
-        pass
+        self.afficher_joueurs()
+
+        for joueur in self.joueurs:
+            joueur.rouler_dés()
 
     def afficher_joueurs(self):
         """
@@ -427,4 +439,4 @@ class Partie:
         # 1) préparer une partie;
         # 2) jouer une partie et
         # 3) terminer une partie.
-        pass
+        self.preparer_une_partie()

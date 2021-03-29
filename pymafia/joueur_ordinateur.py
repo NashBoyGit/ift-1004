@@ -16,7 +16,7 @@ class JoueurOrdinateur(Joueur):
         Args:
             identifiant (int): Numéro d'identification du joueur
         """
-        pass
+        super().__init__(identifiant)
 
     def demander_sens(self):
         """

@@ -42,8 +42,8 @@ if __name__ == '__main__':
 
     print("Jouons une partie de pyMafia!\n")
 
-    partie = Partie(4, 3)
-
+    partie = Partie(5, 3)
+    partie.jouer()
 
     # Afficher les instruction
 
@@ -55,4 +55,4 @@ if __name__ == '__main__':
 
     # Démarrage de cette partie.
 
-    input('Appuyer sur ENTER pour quitter.')
+    #input('Appuyer sur ENTER pour quitter.')

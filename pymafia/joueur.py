@@ -16,7 +16,7 @@ class Joueur:
     """
 
     identifiant = 0
-    dés = [] 
+    dés = [Dé] 
     score = 0
 
     def __init__(self, identifiant):
@@ -27,6 +27,7 @@ class Joueur:
             identifiant (int): Identifiant du joueur à être instancié
         """
         self.identifiant = identifiant
+        self.dés.append(Dé())
 
     def rouler_dés(self):
         """
