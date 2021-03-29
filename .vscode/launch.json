@@ -8,8 +8,8 @@
             "name": "Python : Fichier actuel",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "module": "pymafia"
         }
     ]
 }

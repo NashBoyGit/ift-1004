@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     print("Jouons une partie de pyMafia!\n")
 
-    partie = Partie(1, 3)
+    partie = Partie(4, 3)
 
 
     # Afficher les instruction
