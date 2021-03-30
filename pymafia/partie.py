@@ -25,7 +25,7 @@ class Partie:
         gagnant (Joueur): Joueur qui sera déclaré gagnant de la partie, initialisé à None
     """
 
-    joueurs = [Joueur]
+    joueurs = []
     joueurs_actifs = []
     premier_joueur = None
     joueur_courant = None
@@ -71,15 +71,16 @@ class Partie:
         Méthode qui accomplit les actions nécessaires pour débuter une partie.
         """
         # Afficher les joueurs.
+        self.afficher_joueurs()
         # Trouver le premier joueur.
+        self.trouver_premier_joueur()
         # Déterminer le sens de la partie voulue par le premier joueur.
         # Affecter à l'attribut du joueur_courant le premier joueur.
         # Déterminer qui est le joueur suivant.
         # Réinitialiser les dés des joueurs pour que chaque joueur ait 5 dés.
-        self.afficher_joueurs()
+        
 
-        for joueur in self.joueurs:
-            joueur.rouler_dés()
+
 
     def afficher_joueurs(self):
         """
@@ -118,7 +119,13 @@ class Partie:
         le plus haut score lorsque les joueurs lancent deux dés. En cas d'égalité, les joueurs à égalité relancent
         leurs dés jusqu'à ce qu'un seul joueurs aient le plus haut résultat.
         """
-        pass
+        
+        while (self.joueur_courant == None):
+            for joueur in self.joueurs:
+                joueur.rouler_dés()
+                print(joueur.calculer_points())
+
+        print(self.joueur_courant + " commence")
 
     def trouver_joueurs_au_plus_haut_total(self, liste_joueurs):
         """

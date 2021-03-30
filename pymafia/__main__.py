@@ -4,7 +4,7 @@ C'est ici le point d'entrée du programme.
 Ce module définit 3 fonctions ainsi que les commandes principales qui lancent le jeu.
 """
 from pymafia.partie import Partie
-
+from pymafia.joueur import Joueur
 
 def demander_nombre_joueurs():
     """
@@ -42,8 +42,10 @@ if __name__ == '__main__':
 
     print("Jouons une partie de pyMafia!\n")
 
-    partie = Partie(5, 3)
+    partie = Partie(5, 2)
+    
     partie.jouer()
+
 
     # Afficher les instruction
 

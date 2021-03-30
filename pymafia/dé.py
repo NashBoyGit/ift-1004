@@ -12,7 +12,7 @@ class Dé:
     Attributes:
         valeur (int): valeur actuelle du dé
     """
-    valeur = 1
+    valeur = 0
 
     def __init__(self, valeur=1):
         """
@@ -37,4 +37,4 @@ class Dé:
         Returns:
             str: Le caractère représentant l'objet
         """
-        return self.valeur
+        return chr(self.valeur + 9855)

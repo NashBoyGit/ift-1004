@@ -14,9 +14,8 @@ class Joueur:
         dés (liste): liste contenant les dés du joueur
         score (int): nombre de points du joueur
     """
-
     identifiant = 0
-    dés = [Dé] 
+    dés = []
     score = 0
 
     def __init__(self, identifiant):
@@ -27,13 +26,16 @@ class Joueur:
             identifiant (int): Identifiant du joueur à être instancié
         """
         self.identifiant = identifiant
-        self.dés.append(Dé())
+        self.dés = [] 
+        self.ajouter_un_dé()
+        self.ajouter_un_dé()
 
     def rouler_dés(self):
         """
         Méthode qui modifie aléatoirement la valeur de tous les dés du joueur.
         """
-        pass
+        for de in self.dés:
+            de.rouler()
 
     def compter_1_et_6(self):
         """
@@ -76,7 +78,8 @@ class Joueur:
         Returns:
             int: Total de la valeur des dés
         """
-        pass
+        return sum(x.valeur for x in self.dés)
+
 
     def ajuster_score_en_fin_de_tour(self):
         """
