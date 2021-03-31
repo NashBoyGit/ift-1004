@@ -41,7 +41,7 @@ class Partie:
             nombre_joueurs (int): Nombre de joueurs de la partie
             nombre_joueurs_humains (int): Nombre de joueurs humains de la partie
         """
-        self.joueurs_actifs = self.joueurs = self.creer_joueurs(nombre_joueurs, nombre_joueurs_humains)
+        self.joueurs_actifs = self.joueurs = Partie.creer_joueurs(nombre_joueurs, nombre_joueurs_humains)
 
     @staticmethod
     def creer_joueurs(nombre_joueurs, nombre_joueurs_humains):
@@ -119,13 +119,32 @@ class Partie:
         le plus haut score lorsque les joueurs lancent deux dés. En cas d'égalité, les joueurs à égalité relancent
         leurs dés jusqu'à ce qu'un seul joueurs aient le plus haut résultat.
         """
-        
-        while (self.joueur_courant == None):
-            for joueur in self.joueurs:
-                joueur.rouler_dés()
-                print(joueur.calculer_points())
+        # plus_hauts_joueurs = []
+        # plus_haut = 0
+        # while (self.joueur_courant == None):
+        #     for joueur in self.joueurs:
+        #         joueur.rouler_dés()
+        #         points = joueur.calculer_points()
 
-        print(self.joueur_courant + " commence")
+        #         for joueur2 in plus_hauts_joueurs:
+        #             if (plus_haut < points):
+        #                 plus_haut = points
+        #                 plus_hauts_joueurs.append(joueur2)
+
+        #             if (joueur2.calculer_points() < points):
+        #                 plus_hauts_joueurs.remove(joueur2)
+
+
+        #     self.joueur_courant = plus_hauts_joueurs[0]
+
+
+        # print(self.joueur_courant + " commence")
+
+        liste = [3, 3, 3,4,6,6]
+        asdf = map(self.joueurs)
+        liste2 = self.trouver_indices_max(self.joueurs)
+        print(liste2)
+        #self.trouver_joueurs_au_plus_haut_total()
 
     def trouver_joueurs_au_plus_haut_total(self, liste_joueurs):
         """
