@@ -139,12 +139,18 @@ class Partie:
 
 
         # print(self.joueur_courant + " commence")
+        
+        joueurs_restants = self.joueurs
 
-        liste = [3, 3, 3,4,6,6]
-        asdf = map(self.joueurs)
-        liste2 = self.trouver_indices_max(self.joueurs)
-        print(liste2)
-        #self.trouver_joueurs_au_plus_haut_total()
+        while (len(joueurs_restants) > 1):
+            for joueur in joueurs_restants:
+                joueur.rouler_dés()
+            
+            joueurs_restants = self.trouver_joueurs_au_plus_haut_total(joueurs_restants)
+
+        self.joueur_courant = self.joueurs[joueurs_restants[0]]
+        print(f"asdf : {self.joueur_courant.calculer_points()}")
+        print()
 
     def trouver_joueurs_au_plus_haut_total(self, liste_joueurs):
         """
@@ -156,7 +162,9 @@ class Partie:
             list: Liste des joueurs ayant eu le plus haut score. Cette liste contient plus qu'un joueur s'il y a eu
             égalité lors du lancer.
         """
-        pass
+        
+        indices = self.trouver_indices_max([x.calculer_points() for x in liste_joueurs])
+        return [self.joueurs[i] for i in indices]
 
     @staticmethod
     def trouver_indices_max(vecteur):
