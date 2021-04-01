@@ -44,7 +44,11 @@ class Joueur:
             nombre_1 (int): Nombre de dés du joueur ayant la valeur 1
             nombre_6 (int): Nombre de dés du joueur ayant la valeur 6
         """
-        pass
+        valeurs = [de.valeur for de in self.dés]
+        nombre_6 = sum(map(lambda valeur : valeur == 6, valeurs))
+        nombre_1 = sum(map(lambda valeur : valeur == 1, valeurs))
+        return nombre_1, nombre_6
+        
 
     def retirer_dé(self, valeur):
         """

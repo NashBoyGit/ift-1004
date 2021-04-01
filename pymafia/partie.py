@@ -74,6 +74,7 @@ class Partie:
         self.afficher_joueurs()
         # Trouver le premier joueur.
         self.trouver_premier_joueur()
+        print(self.joueur_courant.compter_1_et_6())
         # Déterminer le sens de la partie voulue par le premier joueur.
         # Affecter à l'attribut du joueur_courant le premier joueur.
         # Déterminer qui est le joueur suivant.
@@ -119,38 +120,15 @@ class Partie:
         le plus haut score lorsque les joueurs lancent deux dés. En cas d'égalité, les joueurs à égalité relancent
         leurs dés jusqu'à ce qu'un seul joueurs aient le plus haut résultat.
         """
-        # plus_hauts_joueurs = []
-        # plus_haut = 0
-        # while (self.joueur_courant == None):
-        #     for joueur in self.joueurs:
-        #         joueur.rouler_dés()
-        #         points = joueur.calculer_points()
-
-        #         for joueur2 in plus_hauts_joueurs:
-        #             if (plus_haut < points):
-        #                 plus_haut = points
-        #                 plus_hauts_joueurs.append(joueur2)
-
-        #             if (joueur2.calculer_points() < points):
-        #                 plus_hauts_joueurs.remove(joueur2)
-
-
-        #     self.joueur_courant = plus_hauts_joueurs[0]
-
-
-        # print(self.joueur_courant + " commence")
-        
+      
         joueurs_restants = self.joueurs
 
         while (len(joueurs_restants) > 1):
             for joueur in joueurs_restants:
                 joueur.rouler_dés()
-            
             joueurs_restants = self.trouver_joueurs_au_plus_haut_total(joueurs_restants)
 
-        self.joueur_courant = self.joueurs[joueurs_restants[0]]
-        print(f"asdf : {self.joueur_courant.calculer_points()}")
-        print()
+        self.joueur_courant = joueurs_restants[0]
 
     def trouver_joueurs_au_plus_haut_total(self, liste_joueurs):
         """
