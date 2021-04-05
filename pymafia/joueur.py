@@ -44,6 +44,8 @@ class Joueur:
             nombre_1 (int): Nombre de dés du joueur ayant la valeur 1
             nombre_6 (int): Nombre de dés du joueur ayant la valeur 6
         """
+        nombre_6 = 0
+        nombre_1 = 0
         valeurs = [de.valeur for de in self.dés]
         nombre_6 = sum(map(lambda valeur : valeur == 6, valeurs))
         nombre_1 = sum(map(lambda valeur : valeur == 1, valeurs))
@@ -56,13 +58,15 @@ class Joueur:
         Args:
             valeur (int): Nombre entre 1 et 6 du ou des dés à retirer
         """
-        pass
+        for de in self.dés:
+            if (de.valeur == valeur):
+                self.dés.remove(de)
 
     def retirer_dés(self):
         """
         Méthode qui retire tous les dés du joueurs
         """
-        pass
+        self.dés.clear()
 
     def ajouter_un_dé(self):
         """
@@ -74,7 +78,9 @@ class Joueur:
         """
         Méthode qui réinitialise les dés du joueur en lui remettant 5 dés en main.
         """
-        pass
+        self.retirer_dés()
+        for de in range(5):
+            self.ajouter_un_dé()
 
     def calculer_points(self):
         """
@@ -82,7 +88,7 @@ class Joueur:
         Returns:
             int: Total de la valeur des dés
         """
-        return sum(x.valeur for x in self.dés)
+        return sum(de.valeur for de in self.dés)
 
 
     def ajuster_score_en_fin_de_tour(self):

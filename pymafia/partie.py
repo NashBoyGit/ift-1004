@@ -28,9 +28,10 @@ class Partie:
     joueurs = []
     joueurs_actifs = []
     premier_joueur = None
+    premier_joueur = None
     joueur_courant = None
     joueur_suivant = None
-    ronde = 0
+    ronde = 1
     sens = 1
     gagnant = None
 
@@ -42,6 +43,7 @@ class Partie:
             nombre_joueurs_humains (int): Nombre de joueurs humains de la partie
         """
         self.joueurs_actifs = self.joueurs = Partie.creer_joueurs(nombre_joueurs, nombre_joueurs_humains)
+        self.ronde = 1
 
     @staticmethod
     def creer_joueurs(nombre_joueurs, nombre_joueurs_humains):
@@ -59,11 +61,11 @@ class Partie:
         joueurs = []
         for identifiant in range(nombre_joueurs):
             if identifiant < nombre_joueurs_humains: 
-                joueurs.append(JoueurHumain(identifiant))
+                joueurs.append(JoueurHumain(identifiant + 1))
             else: 
-                joueurs.append(JoueurOrdinateur(identifiant))
+                joueurs.append(JoueurOrdinateur(identifiant + 1))
             
-        shuffle(joueurs)
+        #shuffle(joueurs)
         return joueurs
 
     def preparer_une_partie(self):
@@ -74,14 +76,14 @@ class Partie:
         self.afficher_joueurs()
         # Trouver le premier joueur.
         self.trouver_premier_joueur()
-        print(self.joueur_courant.compter_1_et_6())
         # Déterminer le sens de la partie voulue par le premier joueur.
+        self.determiner_sens()
         # Affecter à l'attribut du joueur_courant le premier joueur.
+        self.joueur_courant = self.premier_joueur
         # Déterminer qui est le joueur suivant.
+        self.determiner_joueur_suivant()
         # Réinitialiser les dés des joueurs pour que chaque joueur ait 5 dés.
-        
-
-
+        self.reinitialiser_dés_joueurs()
 
     def afficher_joueurs(self):
         """
@@ -128,7 +130,7 @@ class Partie:
                 joueur.rouler_dés()
             joueurs_restants = self.trouver_joueurs_au_plus_haut_total(joueurs_restants)
 
-        self.joueur_courant = joueurs_restants[0]
+        self.premier_joueur = joueurs_restants[0]
 
     def trouver_joueurs_au_plus_haut_total(self, liste_joueurs):
         """
@@ -167,19 +169,33 @@ class Partie:
         premier joueur est un humain ou l'ordinateur. Dans le cas de l'humain, une demande est faite à la console.
         L'attribut sens de la partie est modifié selon la réponse. Dans le cas de l'ordinateur, on affiche son choix.
         """
-        pass
+        print(f"Le premier joueur est un {'ordinateur' if isinstance(self.premier_joueur, JoueurOrdinateur) else 'humain'} (Joueur #{self.premier_joueur.identifiant})")
+
+        if (isinstance(self.premier_joueur, JoueurHumain)):
+            while (True):
+                print("Quel sens désirez-vous?")
+                sens = input("1 (Horaire)\n2 (Anti-Horaire)\nChoix : ")
+                if (sens == "1" or sens == "2"): 
+                    self.sens = 1 if sens == "1" else -1
+                    break
+                print("\nChoix invalide!\n")
+        else: 
+            sens = self.premier_joueur.demander_sens()
+            print(f"\nEt il a choisit { 'Horaire' if self.sens == 1  else 'Anti-Horaire'}")
 
     def determiner_joueur_suivant(self):
         """
         Méthode qui trouve qui est le joueur suivant et qui modifie l'attribut joueur_suivant de la partie.
         """
-        pass
+        indice_joueur_courant = self.joueurs_actifs.index(self.joueur_courant)
+        self.joueur_suivant = self.joueurs_actifs[(indice_joueur_courant+1)%len(self.joueurs)]
 
     def reinitialiser_dés_joueurs(self):
         """
         Méthode qui réinitialise les dés des joueurs actifs en leur donnant 5 dés chacun.
         """
-        pass
+        for joueur in self.joueurs_actifs:
+            joueur.reinitialiser_dés()
 
     def jouer_une_partie(self):
         """
@@ -193,14 +209,18 @@ class Partie:
         # 3. Afficher un message donnant les points en fin de ronde.
         # 4. Réinitialiser les dés des joueurs.
         # 5. Passer à la prochaine ronde.
-        pass
+        while (self.ronde <= RONDEMAX):
+            self.jouer_une_ronde()
+            self.ronde += 1
 
     def jouer_une_ronde(self):
         """
         Méthode qui permet de jouer une ronde. Un message de début de ronde est affiché. Ensuite faire une boucle pour
         jouer une succession de tour. On sort de la boucle lorsqu'un joueur gagne le tour.
         """
-        pass
+        print(f"Ronde #{self.ronde}")
+        while len(self.joueurs_actifs) > 1:
+            self.jouer_un_tour()
 
     def jouer_un_tour(self):
         """
@@ -210,11 +230,18 @@ class Partie:
         """
         # Les étapes pour jouer un tour sont:
         # 1) Le joueur courant roule ses dés.
+        self.joueur_courant.rouler_dés()
         # 2) Le résultat du lancer est affiché.
+        print(f"Joueur #{self.joueur_courant.identifiant} : {self.joueur_courant}")
         # 3) On gère les dés de valeur 1 et 6.
+        self.gerer_dés_1_et_6()
         # 4) On vérifie si le joueur courant a gagné la ronde en n'ayant plus de dé. S'il gagne, on affiche un message
         # qui indique qu'il n'a plus de dé. Sinon, on passe au joueur suivant.
-        pass
+
+        if (len(self.joueur_courant.dés) == 0):
+            print(f"Joueur #{self.joueur_courant.identifiant} a gagné la ronde")
+        else:
+            self.passer_dé_joueur_suivant()
 
     def gerer_dés_1_et_6(self):
         """
@@ -223,9 +250,11 @@ class Partie:
         """
         # Les étapes de cette méthode sont:
         # 1. Vérifier si les dés du joueur courant contiennent des 1 et des 6 et obtenir le nombre de 1 et de 6.
+        nombre_1, nombre_6 = self.verifier_dés_joueur_courant_pour_1_et_6()
         # 2. Afficher les messages pour ces dés.
+        self.afficher_messages_dés_1_et_6(nombre_1, nombre_6)
         # 3. Déplacer les dés 1 et 6.
-        pass
+        self.deplacer_les_dés_1_et_6(nombre_1, nombre_6)
 
     def verifier_dés_joueur_courant_pour_1_et_6(self):
         """
@@ -233,7 +262,12 @@ class Partie:
         Returns:
             int, int: nombre de dés de valeur 1 et 6
         """
-        pass
+        nombre_6 = 0
+        nombre_1 = 0
+        valeurs = [de.valeur for de in self.joueur_courant.dés]
+        nombre_6 = sum(map(lambda valeur : valeur == 6, valeurs))
+        nombre_1 = sum(map(lambda valeur : valeur == 1, valeurs))
+        return nombre_1, nombre_6
 
     def afficher_messages_dés_1_et_6(self, nombre_1, nombre_6):
         """
@@ -282,13 +316,16 @@ class Partie:
             nombre_1 (int): Nombre de dé(s) de valeur 1
             nombre_6 (int): Nombre de dé(s) de valeur 6
         """
-        pass
+        self.joueur_courant.retirer_dé(1)
+        for nombre_de in range(nombre_6):
+            self.passer_dé_joueur_suivant()
+        self.joueur_courant.retirer_dé(6)
 
     def passer_dé_joueur_suivant(self):
         """
         Méthode qui passe un dé en ajoutant un dé au joueur suivant et en retirant un dé de valeur 6 du joueur courant.
         """
-        pass
+        self.joueur_suivant.ajouter_un_dé()
 
     def verifier_si_fin_de_ronde(self):
         """
@@ -296,13 +333,16 @@ class Partie:
         Returns:
             bool: True, si le joueur courant n'a plus de dé. False autrement.
         """
-        pass
+        if (len(self.joueur_courant.dés == 0)):
+            return True
+        else:
+            return False
 
     def passer_au_prochain_joueur(self):
         """
         Méthode qui change la valeur de l'attribut du joueur_courant et qui détermine le joueur suivant.
         """
-        pass
+        self.determiner_joueur_suivant()
 
     def passer_a_la_ronde_suivante(self):
         """
@@ -449,6 +489,8 @@ class Partie:
         """
         # Les étapes sont:
         # 1) préparer une partie;
-        # 2) jouer une partie et
-        # 3) terminer une partie.
         self.preparer_une_partie()
+        # 2) jouer une partie et
+        self.jouer_une_partie()
+        # 3) terminer une partie.
+        self.terminer_une_partie()
