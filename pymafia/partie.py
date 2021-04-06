@@ -330,12 +330,12 @@ class Partie:
         self.joueur_courant.retirer_dé(1)
         for nombre_de in range(nombre_6):
             self.passer_dé_joueur_suivant()
-        self.joueur_courant.retirer_dé(6)
 
     def passer_dé_joueur_suivant(self):
         """
         Méthode qui passe un dé en ajoutant un dé au joueur suivant et en retirant un dé de valeur 6 du joueur courant.
         """
+        self.joueur_courant.retirer_dé(6)
         self.joueur_suivant.ajouter_un_dé()
 
     def verifier_si_fin_de_ronde(self):
@@ -405,10 +405,10 @@ class Partie:
         for joueur in self.joueurs:
             message += f"Le joueur {joueur.identifiant} joue les dés {joueur.dés}."
             if joueur.calculer_points() < joueur.score:
-                message += f"Il donne {joueur.calculer_points()} points au gagnant de la ronde"
+                message += f"Il donne {joueur.calculer_points()} points au gagnant de la ronde\n"
             else: 
                 message += f"La somme des dés est égale ou supérieure à son nombre de points. Il donne {joueur.score} \
-                points au gagnant de la ronde et se retire de la partie."
+                points au gagnant de la ronde et se retire de la partie.\n"
         return message
 
 
