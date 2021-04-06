@@ -456,10 +456,10 @@ class Partie:
         # On informe les joueurs que le nombre maximal de rondes est atteint.
         # Ensuite, on affiche le bilan des points des joueurs de la partie.
         # On détermine le gagnant et on en informe les utilisateurs
-        print("La ronde {} vient de finir ce qui met fin a la partie").format(self.ronde)
+        print(f"La ronde {RONDEMAX} vient de finir ce qui met fin a la partie")
         for joueur in self.joueurs:
-            print("Le joueur{} a accumule un score de {}").format(joueur.identifiant,joueur.score)
-        
+            print(f"Le joueur{joueur.identifiant} a accumule un score de {joueur.score}")
+        print(max(joueur.calculer_points() for joueur in self.joueurs))
 
         print("Merci d'avoir joué à pymafia!")
 
