@@ -74,6 +74,7 @@ if __name__ == '__main__':
     # Afficher les instruction
 
     afficher_instructions()
+    
 
     # Demander le nombre de joueurs voulu par l'utilisateur
     nbr_joueurs=demander_nombre_joueurs()
