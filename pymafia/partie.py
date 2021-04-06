@@ -210,11 +210,11 @@ class Partie:
         # 2. Terminer la ronde.
             self.terminer_ronde()
         # 3. Afficher un message donnant les points en fin de ronde.
-            print(self.messages_pour_points_fin_de_ronde)
+            print(self.messages_pour_points_fin_de_ronde())
         # 4. Réinitialiser les dés des joueurs.
-            self.reinitialiser_dés_joueurs
+            self.reinitialiser_dés_joueurs()
         # 5. Passer à la prochaine ronde.
-            self.passer_a_la_ronde_suivante
+            self.passer_a_la_ronde_suivante()
         
 
 
@@ -470,7 +470,7 @@ class Partie:
         print(f"La ronde {RONDEMAX} vient de finir ce qui met fin a la partie")
         for joueur in self.joueurs:
             print(f"Le joueur{joueur.identifiant} a accumule un score de {joueur.score}")
-        print(max(joueur.calculer_points() for joueur in self.joueurs))
+        joueur_gagnant = 0
 
         print("Merci d'avoir joué à pymafia!")
 
