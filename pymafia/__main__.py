@@ -16,7 +16,7 @@ def demander_nombre_joueurs():
     """
     valeur_entrée=False
     while valeur_entrée == False:
-        nbrs_de_joueurs = input("Combien de joueur entre 2 et 8 aller vous être")
+        nbrs_de_joueurs = input("Combien de joueur entre 2 et 8 aller vous être ? ")
         if nbrs_de_joueurs.isdigit():
             nbrs_de_joueurs=int(nbrs_de_joueurs)
             if nbrs_de_joueurs<=8 and nbrs_de_joueurs>=2:
@@ -37,7 +37,7 @@ def demander_nombre_joueurs_humains(nombre_joueurs):
     """
     valeur_entrée=False
     while valeur_entrée == False:
-        nbrs_de_joueurs_humain = input("Combien de joueur humain voulez-vous avoir")
+        nbrs_de_joueurs_humain = input("Combien de joueur humain voulez-vous avoir ? ")
         if nbrs_de_joueurs_humain.isdigit():
             nbrs_de_joueurs_humain=int(nbrs_de_joueurs_humain)
             if nbrs_de_joueurs_humain<=nombre_joueurs and nbrs_de_joueurs_humain>=0:

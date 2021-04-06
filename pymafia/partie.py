@@ -65,7 +65,7 @@ class Partie:
             else: 
                 joueurs.append(JoueurOrdinateur(identifiant + 1))
             
-        #shuffle(joueurs)
+        shuffle(joueurs)
         return joueurs
 
     def preparer_une_partie(self):
@@ -248,7 +248,7 @@ class Partie:
         if (len(self.joueur_courant.dés) == 0):
             print(f"Joueur #{self.joueur_courant.identifiant} a gagné la ronde")
             return self.joueur_courant
-        else:
+        else:           
             self.passer_au_prochain_joueur()
             return None
             
