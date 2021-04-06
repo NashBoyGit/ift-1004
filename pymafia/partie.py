@@ -207,13 +207,15 @@ class Partie:
         # 1. Jouer une ronde.
         while (self.ronde <= RONDEMAX):
             self.jouer_une_ronde()
-            self.ronde += 1
         # 2. Terminer la ronde.
+            self.terminer_ronde()
         # 3. Afficher un message donnant les points en fin de ronde.
+            print(self.messages_pour_points_fin_de_ronde)
         # 4. Réinitialiser les dés des joueurs.
+            self.reinitialiser_dés_joueurs
         # 5. Passer à la prochaine ronde.
-        while (self.ronde <= RONDEMAX):
-            self.jouer_une_ronde()
+            self.passer_a_la_ronde_suivante
+        
 
 
     def jouer_une_ronde(self):
@@ -409,7 +411,7 @@ class Partie:
         somme_points = 0
         for joueur in self.joueurs_actifs:
             joueur.score = joueur.score - joueur.calculer_points
-            somme+=joueur.calculer_points
+            somme_points += joueur.calculer_points
         
         return somme_points
 
