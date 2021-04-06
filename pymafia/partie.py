@@ -221,9 +221,10 @@ class Partie:
         Méthode qui permet de jouer une ronde. Un message de début de ronde est affiché. Ensuite faire une boucle pour
         jouer une succession de tour. On sort de la boucle lorsqu'un joueur gagne le tour.
         """
+        joueur_gagnant = None
         print(f"Ronde #{self.ronde}")
-        while len(self.joueurs_actifs) > 1:
-            self.jouer_un_tour()
+        while joueur_gagnant == None:
+            joueur_gagnant = self.jouer_un_tour()
 
     def jouer_un_tour(self):
         """
@@ -243,9 +244,12 @@ class Partie:
 
         if (len(self.joueur_courant.dés) == 0):
             print(f"Joueur #{self.joueur_courant.identifiant} a gagné la ronde")
+            return self.joueur_courant
         else:
             self.passer_dé_joueur_suivant()
-
+            self.passer_au_prochain_joueur()
+            return None
+            
     def gerer_dés_1_et_6(self):
         """
         Méthode qui gère le contenu des dés du joueur courant suite à un lancer pour traiter la présence de 1 et de 6
@@ -345,6 +349,7 @@ class Partie:
         """
         Méthode qui change la valeur de l'attribut du joueur_courant et qui détermine le joueur suivant.
         """
+        self.joueur_courant = self.joueur_suivant
         self.determiner_joueur_suivant()
 
     def passer_a_la_ronde_suivante(self):
