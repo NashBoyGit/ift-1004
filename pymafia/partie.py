@@ -236,7 +236,7 @@ class Partie:
             Joueur: Le joueur gagnant, si le joueur courant gagne le tour, None autrement.
         """
         # Les étapes pour jouer un tour sont:
-        input()
+        
         # 1) Le joueur courant roule ses dés.
         self.joueur_courant.rouler_dés()
         # 2) Le résultat du lancer est affiché.
@@ -249,8 +249,7 @@ class Partie:
         if (len(self.joueur_courant.dés) == 0):
             print(f"Joueur #{self.joueur_courant.identifiant} a gagné la ronde")
             return self.joueur_courant
-        else:
-            self.passer_dé_joueur_suivant()
+        else:           
             self.passer_au_prochain_joueur()
             return None
             
