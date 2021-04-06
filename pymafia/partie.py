@@ -205,6 +205,9 @@ class Partie:
         # égale au nombre maximal de ronde. Chacune des itérations de la boucle permet de jouer une ronde.
         # Les étapes pour une ronde sont:
         # 1. Jouer une ronde.
+        while (self.ronde <= RONDEMAX):
+            self.jouer_une_ronde()
+            self.ronde += 1
         # 2. Terminer la ronde.
         # 3. Afficher un message donnant les points en fin de ronde.
         # 4. Réinitialiser les dés des joueurs.
@@ -424,7 +427,7 @@ class Partie:
         Returns:
             str: Chaîne de caractères contenant le message.
         """
-        return ""
+        return "Le joueur {} obtient {} points.".format(self.joueur_courant.identifiant, points_au_gagnant)
 
     def retirer_joueurs_sans_points(self):
         """
@@ -435,7 +438,11 @@ class Partie:
             list: La liste des joueurs à retirer. (Cette valeur de retour ne devrait pas être utilisée dans le TP3, mais
             sera utile pour le TP4.
         """
-        pass
+        joueur_a_retire=[]
+        for joueur in self.joueurs_actifs:
+            if joueur.score == 0:
+                joueur_a_retire.append(joueur)
+        
 
     def terminer_une_partie(self):
         """
@@ -444,6 +451,10 @@ class Partie:
         # On informe les joueurs que le nombre maximal de rondes est atteint.
         # Ensuite, on affiche le bilan des points des joueurs de la partie.
         # On détermine le gagnant et on en informe les utilisateurs
+        print("La ronde {} vient de finir ce qui met fin a la partie").format(self.ronde)
+        for joueur in self.joueurs:
+            print("Le joueur{} a accumule un score de {}").format(joueur.identifiant,joueur.score)
+        
 
         print("Merci d'avoir joué à pymafia!")
 
