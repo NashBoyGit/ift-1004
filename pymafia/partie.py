@@ -212,6 +212,9 @@ class Partie:
         # 3. Afficher un message donnant les points en fin de ronde.
         # 4. Réinitialiser les dés des joueurs.
         # 5. Passer à la prochaine ronde.
+        while (self.ronde <= RONDEMAX):
+            self.jouer_une_ronde()
+
 
     def jouer_une_ronde(self):
         """
@@ -352,25 +355,35 @@ class Partie:
     def passer_a_la_ronde_suivante(self):
         """
         Méthode qui incrémente le numéro de la ronde.
+        
         """
-        pass
+        self.ronde += 1
+
 
     def terminer_ronde(self):
         """
         Méthode qui accomplit les actions de jeu en fin de ronde à l'aide d'autres méthodes de la classe.
         """
         # 1. Tous les joueurs qui n'ont pas gagné la ronde jouent les dés qui leur restent.
+        self.jouer_dés_en_fin_de_ronde()
         # 2. Afficher les messages des points donnés par les joueurs.
+        print(self.messages_pour_points_fin_de_ronde())
         # 3. Ajuster les points de perdants de la ronde et compter la somme des points destinés au gagnant.
+        self.ajuster_points_des_perdants_en_fin_de_ronde()
         # 4. Ajuster les points du gagnant avec les points des perdants.
+        self.ajuster_points_du_gagnant()
         # 5. Afficher le message qui annonce le nouveau score du gagnant.
-        pass
+        print(self.message_pour_points_du_gagnant())
+        
 
     def jouer_dés_en_fin_de_ronde(self):
         """
         Méthode qui fait rouler les dés des joueurs qui sont encore actifs (sauf le gagnant)
         """
-        pass
+        for joueur in self.joueurs_actifs:
+            if len(joueur.dés) != 0:
+                joueur.rouler_dés
+
 
     def messages_pour_points_fin_de_ronde(self):
         """
@@ -393,7 +406,12 @@ class Partie:
         Returns:
             int: Somme des points retirés aux joueurs.
         """
-        pass
+        somme_points = 0
+        for joueur in self.joueurs_actifs:
+            joueur.score = joueur.score - joueur.calculer_points
+            somme+=joueur.calculer_points
+        
+        return somme_points
 
     def ajuster_points_du_gagnant(self, score):
         """
@@ -401,7 +419,9 @@ class Partie:
         Args:
             score (int): Le nombre de points à ajouter au score du joueur courant.
         """
-        pass
+        self.joueur_courant.score += score
+
+
 
     def message_pour_points_du_gagnant(self, points_au_gagnant):
         """
@@ -412,7 +432,7 @@ class Partie:
         Returns:
             str: Chaîne de caractères contenant le message.
         """
-        pass
+        return "Le joueur {} obtient {} points.".format(self.joueur_courant.identifiant, points_au_gagnant)
 
     def retirer_joueurs_sans_points(self):
         """
@@ -423,7 +443,11 @@ class Partie:
             list: La liste des joueurs à retirer. (Cette valeur de retour ne devrait pas être utilisée dans le TP3, mais
             sera utile pour le TP4.
         """
-        pass
+        joueur_a_retire=[]
+        for joueur in self.joueurs_actifs:
+            if joueur.score == 0:
+                joueur_a_retire.append(joueur)
+        
 
     def terminer_une_partie(self):
         """
@@ -432,6 +456,10 @@ class Partie:
         # On informe les joueurs que le nombre maximal de rondes est atteint.
         # Ensuite, on affiche le bilan des points des joueurs de la partie.
         # On détermine le gagnant et on en informe les utilisateurs
+        print("La ronde {} vient de finir ce qui met fin a la partie").format(self.ronde)
+        for joueur in self.joueurs:
+            print("Le joueur{} a accumule un score de {}").format(joueur.identifiant,joueur.score)
+        
 
         print("Merci d'avoir joué à pymafia!")
 
