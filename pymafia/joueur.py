@@ -100,7 +100,14 @@ class Joueur:
         Returns:
             int: Nombre de points perdus par le joueur en fin de tour et donnés au gagnant.
         """
-        pass
+        if self.calculer_points > self.score:
+            nbr_points_perdus=self.calculer_points-self.score
+            self.score = 0
+            return nbr_points_perdus
+        else:
+            self.score = self.score-self.calculer_points
+            return self.calculer_points
+        
 
     def __eq__(self, other):
         """
