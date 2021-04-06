@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     print("Jouons une partie de pyMafia!\n")
 
-    partie = Partie(5, 2)
+    partie = Partie(3, 2)
     
     partie.jouer()
 

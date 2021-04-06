@@ -410,9 +410,7 @@ class Partie:
         """
         somme_points = 0
         for joueur in self.joueurs_actifs:
-            if joueur.calculer_points == 0:
-                joueur.score = joueur.score - joueur.calculer_points
-                somme+=joueur.calculer_points
+            somme_points += joueur.ajuster_score_en_fin_de_tour()
         
         return somme_points
 
@@ -459,12 +457,10 @@ class Partie:
         # On informe les joueurs que le nombre maximal de rondes est atteint.
         # Ensuite, on affiche le bilan des points des joueurs de la partie.
         # On détermine le gagnant et on en informe les utilisateurs
-        print(f"La ronde {self.ronde} vient de finir ce qui met fin a la partie")
+        print(f"La ronde {RONDEMAX} vient de finir ce qui met fin a la partie")
         for joueur in self.joueurs:
             print(f"Le joueur{joueur.identifiant} a accumule un score de {joueur.score}")
         print(max(joueur.calculer_points() for joueur in self.joueurs))
-        
-        
 
         print("Merci d'avoir joué à pymafia!")
 
