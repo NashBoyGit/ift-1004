@@ -16,7 +16,7 @@ class Joueur:
     """
     identifiant = 0
     dés = []
-    score = 0
+    score = 50
 
     def __init__(self, identifiant):
         """

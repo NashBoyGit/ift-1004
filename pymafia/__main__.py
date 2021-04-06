@@ -84,5 +84,5 @@ if __name__ == '__main__':
     # Création de l'objet partie avec le nombre de joueurs spécifiés
     partie=Partie(nbr_joueurs, nbr_joueur_humain)
     # Démarrage de cette partie.
-    partie.jouer_une_partie()
+    partie.jouer()
     #input('Appuyer sur ENTER pour quitter.')
