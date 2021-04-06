@@ -82,6 +82,7 @@ class Partie:
         self.joueur_courant = self.premier_joueur
         # Déterminer qui est le joueur suivant.
         self.determiner_joueur_suivant()
+        print(self.messages_pour_points_fin_de_ronde())
         # Réinitialiser les dés des joueurs pour que chaque joueur ait 5 dés.
         self.reinitialiser_dés_joueurs()
 
@@ -227,6 +228,7 @@ class Partie:
         print(f"Ronde #{self.ronde}")
         while joueur_gagnant == None:
             joueur_gagnant = self.jouer_un_tour()
+        
 
     def jouer_un_tour(self):
         """
@@ -399,7 +401,16 @@ class Partie:
         Returns:
             str: Le message qui indique le nombre de points par chaque joueur perdant de la ronde.
         """
-        pass
+        message = ""
+        for joueur in self.joueurs:
+            message += f"Le joueur {joueur.identifiant} joue les dés {joueur.dés}."
+            if joueur.calculer_points() < joueur.score:
+                message += f"Il donne {joueur.calculer_points()} points au gagnant de la ronde"
+            else: 
+                message += f"La somme des dés est égale ou supérieure à son nombre de points. Il donne {joueur.score} \
+                points au gagnant de la ronde et se retire de la partie."
+        return message
+
 
     def ajuster_points_des_perdants_en_fin_de_ronde(self):
         """
