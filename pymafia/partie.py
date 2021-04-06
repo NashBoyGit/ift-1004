@@ -172,7 +172,7 @@ class Partie:
         """
         print(f"Le premier joueur est un {'ordinateur' if isinstance(self.premier_joueur, JoueurOrdinateur) else 'humain'} (Joueur #{self.premier_joueur.identifiant})")
 
-        if (isinstance(self.premier_joueur, JoueurHumain)):
+        if isinstance(self.premier_joueur, JoueurHumain):
             while (True):
                 print("Quel sens désirez-vous?")
                 sens = input("1 (Horaire)\n2 (Anti-Horaire)\nChoix : ")

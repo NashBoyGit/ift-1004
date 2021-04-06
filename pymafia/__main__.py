@@ -71,19 +71,18 @@ if __name__ == '__main__':
 
     print("Jouons une partie de pyMafia!\n")
 
-    partie = Partie(3, 2)
-    
-    partie.jouer()
-
-
     # Afficher les instruction
 
+    afficher_instructions()
+    
+
     # Demander le nombre de joueurs voulu par l'utilisateur
+    nbr_joueurs=demander_nombre_joueurs()
 
     # Demander le nombre de joueurs humains
-
+    nbr_joueur_humain=demander_nombre_joueurs_humains(nbr_joueurs)
     # Création de l'objet partie avec le nombre de joueurs spécifiés
-
+    partie=Partie(nbr_joueurs, nbr_joueur_humain)
     # Démarrage de cette partie.
-
+    partie.jouer_une_partie()
     #input('Appuyer sur ENTER pour quitter.')
