@@ -105,7 +105,7 @@ class Joueur:
             self.score = 0
             return nbr_points_perdus
         else:
-            self.score = self.score-self.calculer_points
+            self.score = self.score - self.calculer_points
             return self.calculer_points
         
 
