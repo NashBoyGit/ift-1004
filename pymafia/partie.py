@@ -82,7 +82,6 @@ class Partie:
         self.joueur_courant = self.premier_joueur
         # Déterminer qui est le joueur suivant.
         self.determiner_joueur_suivant()
-        print(self.messages_pour_points_fin_de_ronde())
         # Réinitialiser les dés des joueurs pour que chaque joueur ait 5 dés.
         self.reinitialiser_dés_joueurs()
 
