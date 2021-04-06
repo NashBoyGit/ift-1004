@@ -470,7 +470,7 @@ class Partie:
         print(f"La ronde {RONDEMAX} vient de finir ce qui met fin a la partie")
         for joueur in self.joueurs:
             print(f"Le joueur{joueur.identifiant} a accumule un score de {joueur.score}")
-        joueur_gagnant = 0
+        
 
         print("Merci d'avoir joué à pymafia!")
 
