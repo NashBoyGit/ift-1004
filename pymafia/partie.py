@@ -210,11 +210,11 @@ class Partie:
         # 2. Terminer la ronde.
             self.terminer_ronde()
         # 3. Afficher un message donnant les points en fin de ronde.
-            print(self.messages_pour_points_fin_de_ronde)
+            print(self.messages_pour_points_fin_de_ronde())
         # 4. Réinitialiser les dés des joueurs.
-            self.reinitialiser_dés_joueurs
+            self.reinitialiser_dés_joueurs()
         # 5. Passer à la prochaine ronde.
-            self.passer_a_la_ronde_suivante
+            self.passer_a_la_ronde_suivante()
         
 
 
@@ -236,7 +236,6 @@ class Partie:
             Joueur: Le joueur gagnant, si le joueur courant gagne le tour, None autrement.
         """
         # Les étapes pour jouer un tour sont:
-        input()
         # 1) Le joueur courant roule ses dés.
         self.joueur_courant.rouler_dés()
         # 2) Le résultat du lancer est affiché.
@@ -250,7 +249,6 @@ class Partie:
             print(f"Joueur #{self.joueur_courant.identifiant} a gagné la ronde")
             return self.joueur_courant
         else:
-            self.passer_dé_joueur_suivant()
             self.passer_au_prochain_joueur()
             return None
             
@@ -471,7 +469,7 @@ class Partie:
         print(f"La ronde {RONDEMAX} vient de finir ce qui met fin a la partie")
         for joueur in self.joueurs:
             print(f"Le joueur{joueur.identifiant} a accumule un score de {joueur.score}")
-        print(max(joueur.calculer_points() for joueur in self.joueurs))
+        print(f"Le joueur gagnant a {max(joueur.score for joueur in self.joueurs)}")
 
         print("Merci d'avoir joué à pymafia!")
 
