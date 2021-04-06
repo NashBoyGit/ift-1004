@@ -371,11 +371,11 @@ class Partie:
         # 2. Afficher les messages des points donnés par les joueurs.
         print(self.messages_pour_points_fin_de_ronde())
         # 3. Ajuster les points de perdants de la ronde et compter la somme des points destinés au gagnant.
-        self.ajuster_points_des_perdants_en_fin_de_ronde()
+        points_donne_par_perdants = self.ajuster_points_des_perdants_en_fin_de_ronde()
         # 4. Ajuster les points du gagnant avec les points des perdants.
-        self.ajuster_points_du_gagnant()
+        self.ajuster_points_du_gagnant(points_donne_par_perdants)
         # 5. Afficher le message qui annonce le nouveau score du gagnant.
-        print(self.message_pour_points_du_gagnant())
+        print(self.message_pour_points_du_gagnant(points_donne_par_perdants))
         
 
     def jouer_dés_en_fin_de_ronde(self):
@@ -410,8 +410,9 @@ class Partie:
         """
         somme_points = 0
         for joueur in self.joueurs_actifs:
-            joueur.score = joueur.score - joueur.calculer_points
-            somme+=joueur.calculer_points
+            if joueur.calculer_points == 0:
+                joueur.score = joueur.score - joueur.calculer_points
+                somme+=joueur.calculer_points
         
         return somme_points
 
@@ -434,7 +435,7 @@ class Partie:
         Returns:
             str: Chaîne de caractères contenant le message.
         """
-        return "Le joueur {} obtient {} points.".format(self.joueur_courant.identifiant, points_au_gagnant)
+        return f"Le joueur {self.joueur_courant.identifiant} obtient {points_au_gagnant} points."
 
     def retirer_joueurs_sans_points(self):
         """
@@ -461,6 +462,7 @@ class Partie:
         print(f"La ronde {self.ronde} vient de finir ce qui met fin a la partie")
         for joueur in self.joueurs:
             print(f"Le joueur{joueur.identifiant} a accumule un score de {joueur.score}")
+        print(max(joueur.calculer_points() for joueur in self.joueurs))
         
         
 
