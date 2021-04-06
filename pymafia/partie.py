@@ -205,13 +205,13 @@ class Partie:
         # égale au nombre maximal de ronde. Chacune des itérations de la boucle permet de jouer une ronde.
         # Les étapes pour une ronde sont:
         # 1. Jouer une ronde.
+        while (self.ronde <= RONDEMAX):
+            self.jouer_une_ronde()
+            self.ronde += 1
         # 2. Terminer la ronde.
         # 3. Afficher un message donnant les points en fin de ronde.
         # 4. Réinitialiser les dés des joueurs.
         # 5. Passer à la prochaine ronde.
-        while (self.ronde <= RONDEMAX):
-            self.jouer_une_ronde()
-            self.ronde += 1
 
     def jouer_une_ronde(self):
         """
