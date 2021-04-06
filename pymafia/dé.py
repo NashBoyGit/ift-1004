@@ -38,3 +38,6 @@ class Dé:
             str: Le caractère représentant l'objet
         """
         return chr(self.valeur + 9855)
+
+    def __repr__(self):
+        return str(self)

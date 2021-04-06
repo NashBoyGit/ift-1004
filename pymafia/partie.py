@@ -122,7 +122,7 @@ class Partie:
         le plus haut score lorsque les joueurs lancent deux dés. En cas d'égalité, les joueurs à égalité relancent
         leurs dés jusqu'à ce qu'un seul joueurs aient le plus haut résultat.
         """
-      suivantes
+      
         joueurs_restants = self.joueurs
 
         while (len(joueurs_restants) > 1):
