@@ -236,6 +236,7 @@ class Partie:
             Joueur: Le joueur gagnant, si le joueur courant gagne le tour, None autrement.
         """
         # Les étapes pour jouer un tour sont:
+        input()
         # 1) Le joueur courant roule ses dés.
         self.joueur_courant.rouler_dés()
         # 2) Le résultat du lancer est affiché.

@@ -26,5 +26,5 @@ class JoueurOrdinateur(Joueur):
             et un string (message qui indique le choix du joueur ordinateur,
             par exemple: Le joueur X choisit de jouer vers la gauche (en ordre croissant)).
         """
-        pass
+
 
