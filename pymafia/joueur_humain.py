@@ -19,5 +19,6 @@ class JoueurHumain(Joueur):
         Args:
             identifiant (int): Numéro d'identification du joueur
         """
-        pass
+
+        super().__init__(identifiant)
 

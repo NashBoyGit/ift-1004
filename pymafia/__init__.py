@@ -8,3 +8,7 @@ Aucun code n'est nécessaire dans ce module spécial, sa présence est suffisant
 Si vous créez un package python dans Pycharm, vous obtiendrez automatiquement ce fichier.
 
 """
+
+from pymafia import Partie, RONDEMAX
+from pymafia import JoueurHumain
+from pymafia import JoueurOrdinateur

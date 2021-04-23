@@ -19,13 +19,13 @@ class Dé:
         Args:
             valeur (int, optional): valeur initiale du dé
         """
-        pass
+        self.valeur = valeur
 
     def rouler(self):
         """
         Méthode qui modifie la valeur actuelle du dé en choisissant aléatoirement une valeur entre 1 et 6.
         """
-        pass
+        self.valeur = random.randint(1, 6)
 
     def __str__(self):
         """
@@ -36,4 +36,7 @@ class Dé:
         Returns:
             str: Le caractère représentant l'objet
         """
-        pass
+        return chr(9855+self.valeur)
+
+    def __repr__(self):
+        return str(self)

@@ -16,7 +16,7 @@ class JoueurOrdinateur(Joueur):
         Args:
             identifiant (int): Numéro d'identification du joueur
         """
-        pass
+        super().__init__(identifiant)
 
     def demander_sens(self):
         """
@@ -26,5 +26,12 @@ class JoueurOrdinateur(Joueur):
             et un string (message qui indique le choix du joueur ordinateur,
             par exemple: Le joueur X choisit de jouer vers la gauche (en ordre croissant)).
         """
-        pass
+        choix = randrange(2)
+
+        if choix == 0:
+            message = "Le joueur {} choisit de jouer vers la gauche (en ordre croissant).\n".format(self.identifiant)
+            return 1, message
+        else:
+            message = "Le joueur {} choisit de jouer vers la droite (en ordre décroissant).\n".format(self.identifiant)
+            return -1, message
 

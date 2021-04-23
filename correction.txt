@@ -1,0 +1,62 @@
+
+Nom coéquipier 1 :
+Nom coéquipier 2 :
+
+Numéro de dossier (NI) coéquipier 1 :
+Numéro de dossier (NI) coéquipier 2 :
+
+
+Correction
+==========
+
+Fonctionnalités obligatoires
+----------------------------
+/1 : L’interface permet de redémarrer une partie (avec validation)
+      Commentaires :
+
+/1 : L’interface demande le nombre de joueurs de la partie
+      Commentaires :
+
+/1 : L’interface a un widget pour afficher les instructions du jeu
+      Commentaires :
+
+/1 : L’interface a un widget pour quitter le jeu (avec validation)
+      Commentaires :
+
+/1 : L’interface permet à chaque joueur de lancer leurs dés à tour de rôle
+     avec activation des boutons et affichage du lancer de dés
+      Commentaires :
+
+/0,5 : L’interface affiche le numéro de la ronde et le score des joueurs
+      Commentaires :
+
+/1 : Un joueur est désigné premier joueur (au hasard ou aux dés), avec affichage
+      Commentaires :
+
+/0,5 : Le jeu demande au premier joueur de déterminer le sens de la partie
+      Commentaires :
+
+/1 : Le jeu fait le déplacement des dés de valeur 1 et 6, avec mise à jour des dés
+      Commentaires :
+
+/1 : Le jeu détecte la fin d’une ronde et calcule l’échange de points selon les dés
+      Commentaires :
+
+/1 : Le jeu détecte la fin d’une partie et désigne un ou des gagnants.
+      Commentaires :
+
+/2 : Qualité du code (noms de variables, style, commentaires, documentation)
+      Commentaires :
+
+Pénalités
+---------
+
+
+
+Commentaires du correcteur
+--------------------------
+
+
+
+
+Total : /12

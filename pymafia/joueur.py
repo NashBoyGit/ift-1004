@@ -2,7 +2,7 @@
 Module de la classe Joueur
 """
 
-from pymafia.dé import Dé
+from pymafia.de import Dé
 
 
 class Joueur:
@@ -22,13 +22,16 @@ class Joueur:
         Args:
             identifiant (int): Identifiant du joueur à être instancié
         """
-        pass
+        self.identifiant = identifiant
+        self.dés = [Dé(), Dé()]
+        self.score = 50
 
     def rouler_dés(self):
         """
         Méthode qui modifie aléatoirement la valeur de tous les dés du joueur.
         """
-        pass
+        for dé in self.dés:
+            dé.rouler()
 
     def compter_1_et_6(self):
         """
@@ -37,7 +40,14 @@ class Joueur:
             nombre_1 (int): Nombre de dés du joueur ayant la valeur 1
             nombre_6 (int): Nombre de dés du joueur ayant la valeur 6
         """
-        pass
+        nombre_1 = 0
+        nombre_6 = 0
+        for dé in self.dés:
+            if dé.valeur == 1:
+                nombre_1 += 1
+            elif dé.valeur == 6:
+                nombre_6 += 1
+        return nombre_1, nombre_6
 
     def retirer_dé(self, valeur):
         """
@@ -45,25 +55,25 @@ class Joueur:
         Args:
             valeur (int): Nombre entre 1 et 6 du ou des dés à retirer
         """
-        pass
+        self.dés = [dé for dé in self.dés if dé.valeur != valeur]
 
     def retirer_dés(self):
         """
         Méthode qui retire tous les dés du joueurs
         """
-        pass
+        self.dés = []
 
     def ajouter_un_dé(self):
         """
         Méthode qui ajoute un dé de valeur 6 aux dés du joueur
         """
-        pass
+        self.dés.append(Dé(6))
 
     def reinitialiser_dés(self):
         """
         Méthode qui réinitialise les dés du joueur en lui remettant 5 dés en main.
         """
-        pass
+        self.dés = [Dé(), Dé(), Dé(), Dé(), Dé()]
 
     def calculer_points(self):
         """
@@ -71,7 +81,10 @@ class Joueur:
         Returns:
             int: Total de la valeur des dés
         """
-        pass
+        points = 0
+        for dé in self.dés:
+            points += dé.valeur
+        return points
 
     def ajuster_score_en_fin_de_tour(self):
         """
@@ -82,7 +95,14 @@ class Joueur:
         Returns:
             int: Nombre de points perdus par le joueur en fin de tour et donnés au gagnant.
         """
-        pass
+        points = self.calculer_points()
+        if points <= self.score:
+            self.score -= points
+            return points
+        else:
+            points_restants = self.score
+            self.score = 0
+            return points_restants
 
     def __eq__(self, other):
         """
@@ -116,10 +136,12 @@ class Joueur:
 
     def __str__(self):
         """
-        Méthode qui retourne une chaîne de caractères représentant les dés du joueur. Celle-ci prend la forme d'une
+        Méthode qui retourne une chaîne de caractères représentant les dés du joueur. Celle prend la forme d'une
         chaîne composée des dés. Par exemple, '⚀ ⚃ ⚃'.
         Returns:
             str: Représentation des dés du joueur.
         """
         return ' '.join(str(d) for d in self.dés)
 
+    def __repr__(self):
+        return str(self)
