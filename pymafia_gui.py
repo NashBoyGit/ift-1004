@@ -4,6 +4,7 @@ Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et 
 
 from pymafia.partie import Partie
 from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
+
 def demander_nombre_joueur():
 #    filewin = Toplevel(pymafia_fenetre)
 #    button = Button(filewin, text="Do nothing button")
@@ -175,7 +176,6 @@ class FenetrePymafia(Tk):
         frame_joueur_haut.grid(row=0, column=1)
         frame_joueur_droite.grid(row=1, column=2)
         frame_joueur_bas.grid(row=2, column=1)
-
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
@@ -190,5 +190,6 @@ class FenetrePymafia(Tk):
         self.config(menu=menubar)
 
 if __name__ == '__main__':
-    pymafia_fenetre = FenetrePymafia()
+     pymafia_fenetre = FenetrePymafia()
     pymafia_fenetre.mainloop()
+
