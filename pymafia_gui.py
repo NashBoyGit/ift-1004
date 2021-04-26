@@ -2,7 +2,7 @@
 Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et de classes secondaires.
 """
 
-from pymafia import Partie
+from pymafia.partie import Partie
 from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL
 
 
