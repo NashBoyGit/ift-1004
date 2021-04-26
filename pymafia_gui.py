@@ -176,21 +176,19 @@ class FenetrePymafia(Tk):
         frame_joueur_droite.grid(row=1, column=2)
         frame_joueur_bas.grid(row=2, column=1)
 
-        menubar = Menu(pymafia_fenetre)
+        menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
         filemenu.add_command(label="Instructions", command=demander_nombre_joueur)
 
         filemenu.add_separator()
 
-        filemenu.add_command(label="Exit", command=pymafia_fenetre.quit)
+        filemenu.add_command(label="Exit", command=self.quit)
         menubar.add_cascade(label="Fichier", menu=filemenu)
-        self.frames_joueurs.hide
 
-        pymafia_fenetre.config(menu=menubar)
-        frame_joueur_gauche.grid_forget()
+
+        self.config(menu=menubar)
 
 if __name__ == '__main__':
-
     pymafia_fenetre = FenetrePymafia()
     pymafia_fenetre.mainloop()
