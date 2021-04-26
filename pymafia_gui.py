@@ -223,10 +223,9 @@ class FenetrePymafia(Tk):
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
         self.config(menu=menubar)
+        self.partie.trouver_premier_joueur()
+        self.frames_joueurs[self.partie.premier_joueur.identifiant-1].activer_bouton()
                     
 if __name__ == '__main__':
     pymafia_fenetre = FenetrePymafia()
-    pymafia_fenetre.partie.trouver_premier_joueur()
-    print(pymafia_fenetre.partie.premier_joueur.identifiant)
-    pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
     pymafia_fenetre.mainloop()
