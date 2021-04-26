@@ -24,6 +24,10 @@ def recommencer():
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
         pymafia_fenetre.mainloop()
 
+def quitter():
+    if messagebox.askquestion("ALERTE", "Voulez-vous vraiment quitter le jeu\n Cette étape sera irréversible") == "yes":
+        pymafia_fenetre.quit()
+            
 
         
         
@@ -212,11 +216,10 @@ class FenetrePymafia(Tk):
         filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
         filemenu.add_command(label="Recommencer", command=recommencer)
         filemenu.add_command(label="Instructions", command=shows_instructions)
-        filemenu.add_command(label="Quitter", command=quit)
-
+        
         filemenu.add_separator()
 
-        filemenu.add_command(label="Exit", command=self.quit)
+        filemenu.add_command(label="Exit", command=quitter)
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
         self.config(menu=menubar)
