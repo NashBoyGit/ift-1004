@@ -191,5 +191,5 @@ class FenetrePymafia(Tk):
 
 if __name__ == '__main__':
      pymafia_fenetre = FenetrePymafia()
-    pymafia_fenetre.mainloop()
+     pymafia_fenetre.mainloop()
 
