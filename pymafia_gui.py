@@ -1,9 +1,8 @@
 """
 Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et de classes secondaires.
 """
-
 from pymafia.partie import Partie
-from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
+from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog, messagebox
 
 def demander_nombre_joueur():
 #    filewin = Toplevel(pymafia_fenetre)
@@ -13,6 +12,18 @@ def demander_nombre_joueur():
                                 parent=pymafia_fenetre)
     if (isinstance(answer, int)):
         nombre_joueurs = answer
+
+def shows_instructions():
+    messagebox.showinfo("title", "Le jeu dont vous vous apprêter à jouer ce nomme Pymafia\nVous pouvez jouer entre 2 et 4 joueur\nAu départ chaque joueur dispose de 5 dés traditionnels à 6 faces et un nombre de points choisis au préalable\n")
+    messagebox.showinfo("title","Les régles sont simples\nPour commencer, tout le monde lance les dés. Celui qui a le plus haut résultat décide dans qu'elle sens va le jeu et peut commencer\nÀ son tour, le joueur lance les dés\n")
+    messagebox.showinfo("title","Les dés avec une valeur 6 sont passé au prochain joueur alors que les dés avec une valeur de 1 sont retirés du jeu\nLe but est simple, ne plus avoir de dés en sa possession avant les autres joueurs\nLorsqu'un joueur n'a plus de dés, les autres joueurs lance leur dés restant pour déterminer les points qu'ils perderont et donneront au gagnant du round\n")
+    messagebox.showinfo("title","Si par malheur un joueur n'a pas assez de point, il ne donne que ce qu'il lui reste et doit quitter le jeu\nPar la suite tout le monde récupère 5 dés et une manche est reparti\nLa partie se terminer lorsqu'il n'y a plus qu'un joueur dans le jeu\n")
+
+def recommencer():
+    if messagebox.askquestion("ALERTE", "Voulez-vous vraiment recommencer une partie\n Cette étape sera irréversible") == "yes":
+        pass
+        
+
 
 class FrameJoueur(Frame):
     """
@@ -179,7 +190,9 @@ class FenetrePymafia(Tk):
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
-        filemenu.add_command(label="Instructions", command=demander_nombre_joueur)
+        filemenu.add_command(label="Recommencer", command=recommencer)
+        filemenu.add_command(label="Instructions", command=shows_instructions)
+        filemenu.add_command(label="Quitter", command=quit)
 
         filemenu.add_separator()
 
@@ -188,7 +201,7 @@ class FenetrePymafia(Tk):
 
 
         self.config(menu=menubar)
-
+                    
 if __name__ == '__main__':
      pymafia_fenetre = FenetrePymafia()
      pymafia_fenetre.mainloop()
