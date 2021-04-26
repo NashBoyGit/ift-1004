@@ -3,7 +3,11 @@ Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et 
 """
 
 from pymafia.partie import Partie
+<<<<<<< HEAD
 from tkinter import Checkbutton, Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
+=======
+from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
+>>>>>>> 80224187213612753ce1b09d14004593cda1f91c
 
 def demander_nombre_joueur():
     answer = simpledialog.askstring("Input", "Combien de joueurs serez-vous?",
