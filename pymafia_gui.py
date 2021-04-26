@@ -19,6 +19,12 @@ def shows_instructions():
 
 def recommencer():
     if messagebox.askquestion("ALERTE", "Voulez-vous vraiment recommencer une partie\n Cette étape sera irréversible") == "yes":
+        pymafia_fenetre.partie.trouver_premier_joueur()
+        print(pymafia_fenetre.partie.premier_joueur.identifiant)
+        pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
+        pymafia_fenetre.mainloop()
+
+
         
         
         
