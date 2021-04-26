@@ -19,7 +19,8 @@ def shows_instructions():
 
 def recommencer():
     if messagebox.askquestion("ALERTE", "Voulez-vous vraiment recommencer une partie\n Cette étape sera irréversible") == "yes":
-        pass
+        
+        
         
 
 
