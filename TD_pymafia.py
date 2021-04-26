@@ -3,15 +3,8 @@ Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et 
 """
 
 from pymafia.partie import Partie
-from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
-def demander_nombre_joueur():
-#    filewin = Toplevel(pymafia_fenetre)
-#    button = Button(filewin, text="Do nothing button")
-#    button.pack()
-    answer = simpledialog.askstring("Input", "Combien de joueurs serez-vous?",
-                                parent=pymafia_fenetre)
-    if (isinstance(answer, int)):
-        nombre_joueurs = answer
+from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL
+
 
 class FrameJoueur(Frame):
     """
@@ -176,21 +169,9 @@ class FenetrePymafia(Tk):
         frame_joueur_droite.grid(row=1, column=2)
         frame_joueur_bas.grid(row=2, column=1)
 
-        menubar = Menu(pymafia_fenetre)
-        filemenu = Menu(menubar, tearoff=0)
-        filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
-        filemenu.add_command(label="Instructions", command=demander_nombre_joueur)
-
-        filemenu.add_separator()
-
-        filemenu.add_command(label="Exit", command=pymafia_fenetre.quit)
-        menubar.add_cascade(label="Fichier", menu=filemenu)
-        self.frames_joueurs.hide
-
-        pymafia_fenetre.config(menu=menubar)
-        frame_joueur_gauche.grid_forget()
 
 if __name__ == '__main__':
 
-    pymafia_fenetre = FenetrePymafia()
-    pymafia_fenetre.mainloop()
+    fenetre_pymafia = FenetrePymafia()
+    fenetre_pymafia.mainloop()
+
