@@ -121,7 +121,6 @@ class Partie:
         """
         premier_joueur_trouvé = False
         joueurs_en_liste = self.joueurs
-        input("Déterminons le premier joueur de la partie. Appuyer sur une touche pour rouler les dés.\n")
 
         while not premier_joueur_trouvé:
             for joueur in joueurs_en_liste:
@@ -142,16 +141,13 @@ class Partie:
                       .format(joueurs_au_plus_haut_score[0].identifiant,
                               joueurs_au_plus_haut_score[1].identifiant))
                 joueurs_en_liste = joueurs_au_plus_haut_score
-                input('Appuyer sur une toucher pour relancer les dés.\n')
 
             else:
                 print("\nIl y a égalité entre les joueurs {} et {}. Ces joueurs doivent relancer les dés."
                       .format(', '.join([str(joueur.identifiant) for joueur in joueurs_au_plus_haut_score[:-1]]),
                               joueurs_au_plus_haut_score[-1].identifiant))
                 joueurs_en_liste = joueurs_au_plus_haut_score
-                input('Appuyer sur une toucher pour relancer les dés.\n')
 
-        input("Appuyer sur une touche pour débuter la partie.\n")
 
     @staticmethod
     def trouver_joueurs_au_plus_haut_total(liste_joueurs):
