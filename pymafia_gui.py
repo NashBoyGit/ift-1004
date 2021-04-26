@@ -3,11 +3,9 @@ Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et 
 """
 
 from pymafia.partie import Partie
-from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
+from tkinter import Checkbutton, Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog
+
 def demander_nombre_joueur():
-#    filewin = Toplevel(pymafia_fenetre)
-#    button = Button(filewin, text="Do nothing button")
-#    button.pack()
     answer = simpledialog.askstring("Input", "Combien de joueurs serez-vous?",
                                 parent=pymafia_fenetre)
     if (isinstance(answer, int)):
@@ -25,6 +23,8 @@ class FrameJoueur(Frame):
         self.nom_joueur.set("Joueur {}".format(self.joueur.identifiant))
         self.label_nom_joueur = Label(self, textvariable=self.nom_joueur, padx=10)
         self.bouton_rouler_dés = Button(self, command=self.rouler_dés, text="Rouler\nles\ndés")
+
+
 
     def rouler_dés(self):
         self.joueur.rouler_dés()
@@ -59,6 +59,7 @@ class FrameJoueurGauche(FrameJoueur):
         self.label_dés_joueur1.grid(row=0, column=1)
         self.label_dés_joueur2 = Label(self, textvariable=self.dés_joueur2, font=("Courier", 32), width=1)
         self.label_dés_joueur2.grid(row=0, column=2)
+
 
         self.bouton_rouler_dés.grid(row=0, column=3)
 
@@ -176,6 +177,17 @@ class FenetrePymafia(Tk):
         frame_joueur_droite.grid(row=1, column=2)
         frame_joueur_bas.grid(row=2, column=1)
 
+        for frame in self.frames_joueurs:
+            frame.inactiver_bouton()
+        
+        index = 0
+        self.title(f"Jeu de pymafia (Ronde #{self.partie.ronde})")
+        for joueur in self.partie.joueurs_actifs:
+            label = Label(self, text = f"Joueur {joueur.identifiant} : {joueur.score}")
+            label.place(x=0, y=index)
+            index += 15
+
+
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
@@ -186,9 +198,10 @@ class FenetrePymafia(Tk):
         filemenu.add_command(label="Exit", command=self.quit)
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
-
         self.config(menu=menubar)
 
 if __name__ == '__main__':
     pymafia_fenetre = FenetrePymafia()
+    pymafia_fenetre.partie.determiner_joueur_suivant()
+    print(pymafia_fenetre.partie.joueur_suivant.identifiant)
     pymafia_fenetre.mainloop()
