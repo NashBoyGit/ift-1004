@@ -42,7 +42,13 @@ def quitter():
         pymafia_fenetre.quit()
             
 
-        
+def afficher_score():
+    index = 0
+    pymafia_fenetre.title(f"Jeu de pymafia (Ronde #{pymafia_fenetre.partie.ronde})")
+    for joueur in pymafia_fenetre.partie.joueurs_actifs:
+        label = Label(pymafia_fenetre, text = f"Joueur {joueur.identifiant} : {joueur.score}")
+        label.place(x=0, y=index)
+        index += 15    
         
         
 
@@ -64,7 +70,7 @@ class FrameJoueur(Frame):
         self.joueur.rouler_dés()
         self.mettre_label_dés_a_jour()
         nombre_1, nombre_6 = pymafia_fenetre.partie.verifier_dés_joueur_courant_pour_1_et_6()
-        messagebox.showinfo("", f"{pymafia_fenetre.partie.message_pour_dé_1(nombre_1)}\n{pymafia_fenetre.partie.message_pour_dé_6(nombre_6)}")
+        #messagebox.showinfo("", f"{pymafia_fenetre.partie.message_pour_dé_1(nombre_1)}\n{pymafia_fenetre.partie.message_pour_dé_6(nombre_6)}")
         pymafia_fenetre.partie.gerer_dés_1_et_6()
         pymafia_fenetre.partie.retirer_joueurs_sans_points()
         self.inactiver_bouton()
@@ -79,7 +85,9 @@ class FrameJoueur(Frame):
                     frame.mettre_label_dés_a_jour()
                 pymafia_fenetre.partie.reinitialiser_dés_joueurs()
                 pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
-                                                                            
+                afficher_score()
+
+                                                                         
         else:
             pymafia_fenetre.partie.passer_au_prochain_joueur()
             pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
@@ -213,6 +221,7 @@ class FenetrePymafia(Tk):
         self.title("Jeu de pymafia")
         self.resizable(0, 0)       
         self.partie = Partie(4, 4)
+        #self.partie.reinitialiser_dés_joueurs()
         if messagebox.askquestion("ALERTE", "Voulez-vous jouer en ordre croissant") == "yes":
             self.partie.sens= 1
         else:
@@ -241,14 +250,6 @@ class FenetrePymafia(Tk):
         for frame in self.frames_joueurs:
             frame.inactiver_bouton()
         
-        index = 0
-        self.title(f"Jeu de pymafia (Ronde #{self.partie.ronde})")
-        for joueur in self.partie.joueurs_actifs:
-            label = Label(self, text = f"Joueur {joueur.identifiant} : {joueur.score}")
-            label.place(x=0, y=index)
-            index += 15
-
-
         menubar = Menu(self)
         filemenu = Menu(menubar, tearoff=0)
         filemenu.add_command(label="Démarrer", command=demander_nombre_joueur)
@@ -256,6 +257,7 @@ class FenetrePymafia(Tk):
         filemenu.add_command(label="Instructions", command=shows_instructions)
         
         filemenu.add_separator()
+        
 
         filemenu.add_command(label="Exit", command=quitter)
         menubar.add_cascade(label="Fichier", menu=filemenu)
@@ -266,4 +268,6 @@ class FenetrePymafia(Tk):
                     
 if __name__ == '__main__':
     pymafia_fenetre = FenetrePymafia()
+    pymafia_fenetre.partie.preparer_une_partie()
+    afficher_score()
     pymafia_fenetre.mainloop()
