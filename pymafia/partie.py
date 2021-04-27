@@ -7,7 +7,8 @@ from pymafia.joueur_ordinateur import JoueurOrdinateur
 from random import shuffle
 
 # Variable globale spécifiant le nombre maximale de rondes d'une partie du jeu pymafia
-RONDEMAX = 10
+RONDEMAX = 4
+
 
 
 class Partie:
@@ -37,7 +38,7 @@ class Partie:
         self.joueur_suivant = self.joueurs[1]
         self.ronde = 1
         self.sens = 1
-        
+
 
     @staticmethod
     def creer_joueurs(nombre_joueurs, nombre_joueurs_humains):
