@@ -1,6 +1,7 @@
 """
 Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et de classes secondaires.
 """
+from tkinter.constants import NONE
 from pymafia.partie import Partie
 from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog, messagebox, Checkbutton
 
@@ -19,10 +20,19 @@ def shows_instructions():
 
 def recommencer():
     if messagebox.askquestion("ALERTE", "Voulez-vous vraiment recommencer une partie\n Cette étape sera irréversible") == "yes":
-        pymafia_fenetre.partie.trouver_premier_joueur()
-        print(pymafia_fenetre.partie.premier_joueur.identifiant)
+        pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].inactiver_bouton()
+        pymafia_fenetre.partie.preparer_une_partie()
+        pymafia_fenetre.partie.reinitialiser_dés_joueurs()
+        for frame in pymafia_fenetre.frames_joueurs:
+            frame.mettre_label_dés_a_jour()
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
-        pymafia_fenetre.mainloop()
+
+        #pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
+
+        # pymafia_fenetre.partie.trouver_premier_joueur()
+        # print(pymafia_fenetre.partie.premier_joueur.identifiant)
+        # pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
+        # pymafia_fenetre.mainloop()
 
 def quitter():
     if messagebox.askquestion("ALERTE", "Voulez-vous vraiment quitter le jeu\n Cette étape sera irréversible") == "yes":
@@ -47,8 +57,6 @@ class FrameJoueur(Frame):
         self.label_nom_joueur = Label(self, textvariable=self.nom_joueur, padx=10)
         self.bouton_rouler_dés = Button(self, command=self.rouler_dés, text="Rouler\nles\ndés")
 
-
-
     def rouler_dés(self):
         self.joueur.rouler_dés()
         self.mettre_label_dés_a_jour()
@@ -59,11 +67,8 @@ class FrameJoueur(Frame):
         self.inactiver_bouton()
         pymafia_fenetre.partie.passer_au_prochain_joueur()
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
+        pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
         self.mettre_label_dés_a_jour()
-
-
-        
-
 
     def mettre_label_dés_a_jour(self):
         # Méthode à être redéfinie dans les classes filles
@@ -188,13 +193,12 @@ class FenetrePymafia(Tk):
     """
 
     def __init__(self):
-
         super().__init__()
         self.title("Jeu de pymafia")
         self.resizable(0, 0)
         self.partie = Partie(4, 4)
-
-        self.partie.reinitialiser_dés_joueurs()
+        self.partie.preparer_une_partie()
+        #self.partie.reinitialiser_dés_joueurs()
 
         self.frames_joueurs = []
 
@@ -235,7 +239,6 @@ class FenetrePymafia(Tk):
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
         self.config(menu=menubar)
-        self.partie.preparer_une_partie()
 
         self.frames_joueurs[self.partie.premier_joueur.identifiant-1].activer_bouton()
                     
