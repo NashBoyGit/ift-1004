@@ -29,6 +29,9 @@ def recommencer():
         for frame in pymafia_fenetre.frames_joueurs:
             frame.mettre_label_dés_a_jour()
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
+        for joueur in pymafia_fenetre.partie.joueurs_actifs:
+            joueur.score = 50
+        afficher_score()
 
         #pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
 
