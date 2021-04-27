@@ -268,6 +268,5 @@ class FenetrePymafia(Tk):
                     
 if __name__ == '__main__':
     pymafia_fenetre = FenetrePymafia()
-    pymafia_fenetre.partie.preparer_une_partie()
     afficher_score()
     pymafia_fenetre.mainloop()
