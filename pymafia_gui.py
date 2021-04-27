@@ -75,12 +75,11 @@ class FrameJoueur(Frame):
             else:
                 pymafia_fenetre.partie.passer_a_la_ronde_suivante
                 pymafia_fenetre.partie.preparer_une_partie
-                pymafia_fenetre.partie.reinitialiser_dés_joueurs()
                 for frame in pymafia_fenetre.frames_joueurs:
                     frame.mettre_label_dés_a_jour()
+                pymafia_fenetre.partie.reinitialiser_dés_joueurs()
                 pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
-    
-                                                                         
+                                                                            
         else:
             pymafia_fenetre.partie.passer_au_prochain_joueur()
             pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
@@ -212,15 +211,16 @@ class FenetrePymafia(Tk):
     def __init__(self):
         super().__init__()
         self.title("Jeu de pymafia")
-        self.resizable(0, 0)
+        self.resizable(0, 0)       
         self.partie = Partie(4, 4)
-        self.partie.preparer_une_partie()
-        #self.partie.reinitialiser_dés_joueurs()
         if messagebox.askquestion("ALERTE", "Voulez-vous jouer en ordre croissant") == "yes":
             self.partie.sens= 1
         else:
-            self.partie.sens = -1
-            
+            self.partie.sens = -1 
+        self.partie.preparer_une_partie()
+        #self.partie.reinitialiser_dés_joueurs()
+        
+
 
         self.frames_joueurs = []
 
