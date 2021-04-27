@@ -395,7 +395,6 @@ class Partie:
         points_au_gagnant = self.ajuster_points_des_perdants_en_fin_de_ronde()
         self.ajuster_points_du_gagnant(points_au_gagnant)
         print(self.message_pour_points_du_gagnant(points_au_gagnant))
-        input("Appuyer sur une touche pour continuer.\n")
         self.retirer_joueurs_sans_points()
 
     def jouer_dés_en_fin_de_ronde(self):

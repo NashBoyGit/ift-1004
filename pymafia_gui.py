@@ -4,7 +4,7 @@ Module contenant la description d'une classe pour la fenêtre du jeu Pymafia et 
 from tkinter.constants import NONE
 from pymafia.partie import Partie
 from tkinter import Tk, Frame, Button, Label, StringVar, DISABLED, NORMAL, Toplevel, Menu,simpledialog, messagebox, Checkbutton
-
+from pymafia.partie import RONDEMAX
 
 def demander_nombre_joueur():
     answer = simpledialog.askstring("Input", "Combien de joueurs serez-vous?",
@@ -65,10 +65,20 @@ class FrameJoueur(Frame):
         pymafia_fenetre.partie.gerer_dés_1_et_6()
         pymafia_fenetre.partie.retirer_joueurs_sans_points()
         self.inactiver_bouton()
-        pymafia_fenetre.partie.passer_au_prochain_joueur()
-        pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
-        pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
-        self.mettre_label_dés_a_jour()
+        if pymafia_fenetre.partie.verifier_si_fin_de_ronde() == True:
+            pymafia_fenetre.partie.terminer_ronde()
+            if len(pymafia_fenetre.partie.joueurs_actifs) == 1 or pymafia_fenetre.partie.ronde == RONDEMAX:
+                pymafia_fenetre.partie.terminer_une_partie()
+            else:
+                pymafia_fenetre.partie.preparer_une_partie()
+                pymafia_fenetre.partie.reinitialiser_dés_joueurs()
+    
+                                                                         
+        else:
+            pymafia_fenetre.partie.passer_au_prochain_joueur()
+            pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
+            pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
+            self.mettre_label_dés_a_jour()
 
     def mettre_label_dés_a_jour(self):
         # Méthode à être redéfinie dans les classes filles
