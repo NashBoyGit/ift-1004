@@ -13,13 +13,15 @@ def demander_nombre_joueur():
         nombre_joueurs = answer
 
 def shows_instructions():
-    messagebox.showinfo("title", "Le jeu dont vous vous apprêter à jouer ce nomme Pymafia\nVous pouvez jouer entre 2 et 4 joueur\nAu départ chaque joueur dispose de 5 dés traditionnels à 6 faces et un nombre de points choisis au préalable\n")
-    messagebox.showinfo("title","Les régles sont simples\nPour commencer, tout le monde lance les dés. Celui qui a le plus haut résultat décide dans qu'elle sens va le jeu et peut commencer\nÀ son tour, le joueur lance les dés\n")
-    messagebox.showinfo("title","Les dés avec une valeur 6 sont passé au prochain joueur alors que les dés avec une valeur de 1 sont retirés du jeu\nLe but est simple, ne plus avoir de dés en sa possession avant les autres joueurs\nLorsqu'un joueur n'a plus de dés, les autres joueurs lance leur dés restant pour déterminer les points qu'ils perderont et donneront au gagnant du round\n")
-    messagebox.showinfo("title","Si par malheur un joueur n'a pas assez de point, il ne donne que ce qu'il lui reste et doit quitter le jeu\nPar la suite tout le monde récupère 5 dés et une manche est reparti\nLa partie se terminer lorsqu'il n'y a plus qu'un joueur dans le jeu\n")
+    messagebox.showinfo("Instructions", "Le jeu dont vous vous apprêter à jouer ce nomme Pymafia\nVous pouvez jouer entre 2 et 4 joueur\nAu départ chaque joueur dispose de 5 dés traditionnels à 6 faces et un nombre de points choisis au préalable\n")
+    messagebox.showinfo("Instructions","Les régles sont simples\nPour commencer, tout le monde lance les dés. Celui qui a le plus haut résultat décide dans qu'elle sens va le jeu et peut commencer\nÀ son tour, le joueur lance les dés\n")
+    messagebox.showinfo("Instructions","Les dés avec une valeur 6 sont passé au prochain joueur alors que les dés avec une valeur de 1 sont retirés du jeu\nLe but est simple, ne plus avoir de dés en sa possession avant les autres joueurs\nLorsqu'un joueur n'a plus de dés, les autres joueurs lance leur dés restant pour déterminer les points qu'ils perderont et donneront au gagnant du round\n")
+    messagebox.showinfo("Instructions","Si par malheur un joueur n'a pas assez de point, il ne donne que ce qu'il lui reste et doit quitter le jeu\nPar la suite tout le monde récupère 5 dés et une manche est reparti\nLa partie se terminer lorsqu'il n'y a plus qu'un joueur dans le jeu\n")
 
 def recommencer():
     if messagebox.askquestion("ALERTE", "Voulez-vous vraiment recommencer une partie\n Cette étape sera irréversible") == "yes":
+        for joueur in pymafia_fenetre.frames_joueurs:
+            joueur.inactiver_bouton()
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].inactiver_bouton()
         pymafia_fenetre.partie.preparer_une_partie()
         pymafia_fenetre.partie.reinitialiser_dés_joueurs()
@@ -70,7 +72,8 @@ class FrameJoueur(Frame):
             if len(pymafia_fenetre.partie.joueurs_actifs) == 1 or pymafia_fenetre.partie.ronde == RONDEMAX:
                 pymafia_fenetre.partie.terminer_une_partie()
             else:
-                pymafia_fenetre.partie.preparer_une_partie()
+                pymafia_fenetre.partie.passer_a_la_ronde_suivante
+                pymafia_fenetre.partie.preparer_une_partie
                 pymafia_fenetre.partie.reinitialiser_dés_joueurs()
                 for frame in pymafia_fenetre.frames_joueurs:
                     frame.mettre_label_dés_a_jour()
