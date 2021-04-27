@@ -65,10 +65,23 @@ class FrameJoueur(Frame):
         pymafia_fenetre.partie.gerer_dés_1_et_6()
         pymafia_fenetre.partie.retirer_joueurs_sans_points()
         self.inactiver_bouton()
+<<<<<<< HEAD
         pymafia_fenetre.partie.passer_au_prochain_joueur()
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
         pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
         self.mettre_label_dés_a_jour()
+=======
+        if pymafia_fenetre.partie.verifier_si_fin_de_ronde == True:
+            pymafia_fenetre.partie.terminer_ronde
+            pymafia_fenetre.partie.jouer_une_ronde 
+        else:
+            pymafia_fenetre.partie.passer_au_prochain_joueur()
+            pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
+            self.mettre_label_dés_a_jour()
+        
+
+
+>>>>>>> e8c885e4b514cafd704443cd55e61146557200eb
 
     def mettre_label_dés_a_jour(self):
         # Méthode à être redéfinie dans les classes filles
