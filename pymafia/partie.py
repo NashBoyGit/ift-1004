@@ -7,7 +7,7 @@ from pymafia.joueur_ordinateur import JoueurOrdinateur
 from random import shuffle
 
 # Variable globale spécifiant le nombre maximale de rondes d'une partie du jeu pymafia
-RONDEMAX = 4
+RONDEMAX = 1
 
 
 

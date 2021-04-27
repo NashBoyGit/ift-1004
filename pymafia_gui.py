@@ -34,14 +34,6 @@ def recommencer():
         pymafia_fenetre.partie.ronde = 1
         afficher_score()
 
-
-        #pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].mettre_label_dés_a_jour()
-
-        # pymafia_fenetre.partie.trouver_premier_joueur()
-        # print(pymafia_fenetre.partie.premier_joueur.identifiant)
-        # pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
-        # pymafia_fenetre.mainloop()
-
 def quitter():
     if messagebox.askquestion("ALERTE", "Voulez-vous vraiment quitter le jeu\n Cette étape sera irréversible") == "yes":
         pymafia_fenetre.quit()
@@ -75,25 +67,41 @@ class FrameJoueur(Frame):
         self.joueur.rouler_dés()
         self.mettre_label_dés_a_jour()
         nombre_1, nombre_6 = pymafia_fenetre.partie.verifier_dés_joueur_courant_pour_1_et_6()
-        #messagebox.showinfo("", f"{pymafia_fenetre.partie.message_pour_dé_1(nombre_1)}\n{pymafia_fenetre.partie.message_pour_dé_6(nombre_6)}")
+        messagebox.showinfo("", f"{pymafia_fenetre.partie.message_pour_dé_1(nombre_1)}\n{pymafia_fenetre.partie.message_pour_dé_6(nombre_6)}")
         pymafia_fenetre.partie.gerer_dés_1_et_6()
         pymafia_fenetre.partie.retirer_joueurs_sans_points()
         self.inactiver_bouton()
         if pymafia_fenetre.partie.verifier_si_fin_de_ronde() == True:
             pymafia_fenetre.partie.terminer_ronde()
-            if len(pymafia_fenetre.partie.joueurs_actifs) == 1 or pymafia_fenetre.partie.ronde == RONDEMAX:
+            if len(pymafia_fenetre.partie.joueurs_actifs) == 1: # or pymafia_fenetre.partie.ronde == RONDEMAX:
                 pymafia_fenetre.partie.terminer_une_partie()
+                messagebox.showinfo("Bravo!", f"Le joueur {pymafia_fenetre.partie.joueurs_actifs[0].identifiant} \
+                a gagné la partie\nMerci d''avoir joué à pymafia!")
+                pymafia_fenetre.quit()
+            
+            # Plusieurs joueurs ont gagné la partie, RondeMax est atteint
+            if (pymafia_fenetre.partie.ronde == RONDEMAX):
+                string_joueur = ""
+                for joueur in pymafia_fenetre.partie.joueurs_actifs:
+                    string_joueur += f"Joueur {joueur.identifiant} \n"
+
+                messagebox.showinfo("Bravo!", "Les joueurs suivants ont gagnés la partie :\n"
+                f"{string_joueur}"
+                "\nMerci d''avoir joué à pymafia!")
+                pymafia_fenetre.quit()
+
+            # Personne n'a gagné la fin du ronde, on passe à la suivante 
             else:
                 pymafia_fenetre.partie.passer_a_la_ronde_suivante()
-                print(pymafia_fenetre.partie.ronde)
                 pymafia_fenetre.partie.preparer_une_partie()
                 for frame in pymafia_fenetre.frames_joueurs:
                     frame.mettre_label_dés_a_jour()
                 pymafia_fenetre.partie.reinitialiser_dés_joueurs()
+                messagebox.showinfo(f"Ronde #{pymafia_fenetre.partie.ronde}", f"Joueur {self.partie.premier_joueur.identifiant} commence la ronde")
                 pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
                 afficher_score()
 
-                                                                         
+        # La ronde n'est pas terminée on passe au prochain joueur                                                                 
         else:
             pymafia_fenetre.partie.passer_au_prochain_joueur()
             pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
@@ -227,13 +235,8 @@ class FenetrePymafia(Tk):
         self.title("Jeu de pymafia")
         self.resizable(0, 0)       
         self.partie = Partie(4, 4)
-        #self.partie.reinitialiser_dés_joueurs()
-        if messagebox.askquestion("ALERTE", "Voulez-vous jouer en ordre croissant") == "yes":
-            self.partie.sens= 1
-        else:
-            self.partie.sens = -1 
+
         self.partie.preparer_une_partie()
-        #self.partie.reinitialiser_dés_joueurs()
         
 
 
@@ -268,7 +271,12 @@ class FenetrePymafia(Tk):
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
         self.config(menu=menubar)
-
+        messagebox.showinfo(f"Ronde #{self.partie.ronde}", f"Joueur {self.partie.premier_joueur.identifiant} commence la ronde")
+        if messagebox.askquestion("Début de la partie", f"Joueur #{self.partie.premier_joueur.identifiant} est le premier joueur\n"
+        "Voulez-vous commencer dans le sens horaire ?") == "yes":
+            self.partie.sens= 1
+        else:
+            self.partie.sens = -1 
         self.frames_joueurs[self.partie.premier_joueur.identifiant-1].activer_bouton()
                     
 if __name__ == '__main__':
