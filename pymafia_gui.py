@@ -56,10 +56,8 @@ class FrameJoueur(Frame):
         pymafia_fenetre.partie.gerer_dés_1_et_6()
         pymafia_fenetre.partie.retirer_joueurs_sans_points()
         self.inactiver_bouton()
-        if pymafia_fenetre.partie.verifier_si_fin_de_ronde == True:
-            self.inactiver_bouton
-            pymafia_fenetre.partie.terminer_ronde
-            pymafia_fenetre.partie.jouer_une_ronde 
+        if self.joueur.partie.verifier_si_fin_de_ronde == True:
+            pymafia_fenetre.partie.terminer_ronde   
         else:
             pymafia_fenetre.partie.passer_au_prochain_joueur()
             pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
