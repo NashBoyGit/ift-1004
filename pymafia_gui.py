@@ -11,6 +11,7 @@ def demander_nombre_joueur():
                                 parent=pymafia_fenetre)
     if (isinstance(answer, int)):
         nombre_joueurs = answer
+        
 
 def shows_instructions():
     messagebox.showinfo("Instructions", "Le jeu dont vous vous apprêter à jouer ce nomme Pymafia\nVous pouvez jouer entre 2 et 4 joueur\nAu départ chaque joueur dispose de 5 dés traditionnels à 6 faces et un nombre de points choisis au préalable\n")
@@ -214,6 +215,10 @@ class FenetrePymafia(Tk):
         self.resizable(0, 0)
         self.partie = Partie(4, 4)
         self.partie.preparer_une_partie()
+        
+        
+
+        
         #self.partie.reinitialiser_dés_joueurs()
 
         self.frames_joueurs = []
@@ -257,6 +262,11 @@ class FenetrePymafia(Tk):
         self.config(menu=menubar)
 
         self.frames_joueurs[self.partie.premier_joueur.identifiant-1].activer_bouton()
+
+        if messagebox.askquestion("Demander Sens", "Voulez-vous jouer en ordre croissant ? ") == "yes":
+            self.partie.sens = 1
+        else: 
+            self.sens = -1
                     
 if __name__ == '__main__':
     pymafia_fenetre = FenetrePymafia()
