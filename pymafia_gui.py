@@ -215,11 +215,12 @@ class FenetrePymafia(Tk):
         self.resizable(0, 0)
         self.partie = Partie(4, 4)
         self.partie.preparer_une_partie()
-        
-        
-
-        
         #self.partie.reinitialiser_dés_joueurs()
+        if messagebox.askquestion("ALERTE", "Voulez-vous jouer en ordre croissant") == "yes":
+            self.partie.sens= 1
+        else:
+            self.partie.sens = -1
+            
 
         self.frames_joueurs = []
 
@@ -262,11 +263,6 @@ class FenetrePymafia(Tk):
         self.config(menu=menubar)
 
         self.frames_joueurs[self.partie.premier_joueur.identifiant-1].activer_bouton()
-
-        if messagebox.askquestion("Demander Sens", "Voulez-vous jouer en ordre croissant ? ") == "yes":
-            self.partie.sens = 1
-        else: 
-            self.sens = -1
                     
 if __name__ == '__main__':
     pymafia_fenetre = FenetrePymafia()
