@@ -52,6 +52,18 @@ class FrameJoueur(Frame):
     def rouler_dés(self):
         self.joueur.rouler_dés()
         self.mettre_label_dés_a_jour()
+        nombre_1, nombre_6 = pymafia_fenetre.partie.verifier_dés_joueur_courant_pour_1_et_6()
+        messagebox.showinfo("", f"{pymafia_fenetre.partie.message_pour_dé_1(nombre_1)}\n{pymafia_fenetre.partie.message_pour_dé_6(nombre_6)}")
+        pymafia_fenetre.partie.gerer_dés_1_et_6()
+        pymafia_fenetre.partie.retirer_joueurs_sans_points()
+        self.inactiver_bouton()
+        pymafia_fenetre.partie.passer_au_prochain_joueur()
+        pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.joueur_courant.identifiant-1].activer_bouton()
+        self.mettre_label_dés_a_jour()
+
+
+        
+
 
     def mettre_label_dés_a_jour(self):
         # Méthode à être redéfinie dans les classes filles
@@ -223,7 +235,8 @@ class FenetrePymafia(Tk):
         menubar.add_cascade(label="Fichier", menu=filemenu)
 
         self.config(menu=menubar)
-        self.partie.trouver_premier_joueur()
+        self.partie.preparer_une_partie()
+
         self.frames_joueurs[self.partie.premier_joueur.identifiant-1].activer_bouton()
                     
 if __name__ == '__main__':

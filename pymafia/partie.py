@@ -76,7 +76,7 @@ class Partie:
         """
         self.afficher_joueurs()
         self.trouver_premier_joueur()
-        self.determiner_sens()
+        #self.determiner_sens()
         self.joueur_courant = self.premier_joueur
         self.determiner_joueur_suivant()
         self.reinitialiser_dés_joueurs()
@@ -288,7 +288,6 @@ class Partie:
         nombre_1, nombre_6 = self.verifier_dés_joueur_courant_pour_1_et_6()
         self.afficher_messages_dés_1_et_6(nombre_1, nombre_6)
         self.deplacer_les_dés_1_et_6(nombre_1, nombre_6)
-        input("Appuyer sur une touche pour continuer.\n")
 
     def verifier_dés_joueur_courant_pour_1_et_6(self):
         """
