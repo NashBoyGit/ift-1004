@@ -72,6 +72,9 @@ class FrameJoueur(Frame):
             else:
                 pymafia_fenetre.partie.preparer_une_partie()
                 pymafia_fenetre.partie.reinitialiser_dés_joueurs()
+                for frame in pymafia_fenetre.frames_joueurs:
+                    frame.mettre_label_dés_a_jour()
+                pymafia_fenetre.frames_joueurs[pymafia_fenetre.partie.premier_joueur.identifiant-1].activer_bouton()
     
                                                                          
         else:
