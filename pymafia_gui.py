@@ -79,8 +79,9 @@ class FrameJoueur(Frame):
             if len(pymafia_fenetre.partie.joueurs_actifs) == 1 or pymafia_fenetre.partie.ronde == RONDEMAX:
                 pymafia_fenetre.partie.terminer_une_partie()
             else:
-                pymafia_fenetre.partie.passer_a_la_ronde_suivante
-                pymafia_fenetre.partie.preparer_une_partie
+                pymafia_fenetre.partie.passer_a_la_ronde_suivante()
+                print(pymafia_fenetre.partie.ronde)
+                pymafia_fenetre.partie.preparer_une_partie()
                 for frame in pymafia_fenetre.frames_joueurs:
                     frame.mettre_label_dés_a_jour()
                 pymafia_fenetre.partie.reinitialiser_dés_joueurs()
@@ -257,7 +258,6 @@ class FenetrePymafia(Tk):
         filemenu.add_command(label="Instructions", command=shows_instructions)
         
         filemenu.add_separator()
-        
 
         filemenu.add_command(label="Exit", command=quitter)
         menubar.add_cascade(label="Fichier", menu=filemenu)
