@@ -37,6 +37,7 @@ class Partie:
         self.joueur_suivant = self.joueurs[1]
         self.ronde = 1
         self.sens = 1
+        
 
     @staticmethod
     def creer_joueurs(nombre_joueurs, nombre_joueurs_humains):
@@ -509,7 +510,7 @@ class Partie:
         """
         print("Le nombre maximal de rondes est atteint. La partie est terminée.")
         print(self.message_points_en_fin_de_partie())
-        input("Appuyer sur une touche pour continuer.\n")
+
         print(self.message_gagnants(self.determiner_liste_gagnants()))
         print("Merci d'avoir joué à pymafia!")
 
